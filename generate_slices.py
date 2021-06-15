@@ -6,14 +6,18 @@ center_x = 960
 center_y = 540
 degree = 30
 rad = degree/180 * pi 
+angle_offset = 0.261799
+overlap = 0.001
 
 def delta_x(angle):
+    angle += angle_offset
     return radius*sin(angle)
 
 def delta_y(angle):
+    angle += angle_offset
     return radius*cos(angle)
 
-ends = []
+starts = []
 
 for i in range(12):
     out_x = delta_x(i*rad)
@@ -22,20 +26,30 @@ for i in range(12):
     #print(delta_x((i+1)*rad))
     #print(delta_y((i+1)*rad))
 
-    end_x = center_x + delta_x((i+1)*rad)
-    end_y = center_y - delta_y((i+1)*rad)
+    end_x = center_x + delta_x((i+1)*rad + overlap)
+    end_y = center_y - delta_y((i+1)*rad + overlap)
 
-    ends.append((end_x, end_y))
+    starts.append((center_x + out_x, center_y + out_y))
 
     segment_mask = base_string.format(seg_nr = i, center_x=center_x, center_y=center_y, out_x=out_x, out_y=out_y, radius=radius, degree=degree, end_x=end_x, end_y=end_y)
 
     print(segment_mask)
 
 
+# segment zero is drawn twice
+
+out_x = delta_x(0)
+out_y = -delta_y(0)
+
+end_x = center_x + delta_x(1*rad)
+end_y = center_y - delta_y(1*rad)
+
+
+print(base_string.format(seg_nr = "Half", center_x=center_x, center_y=center_y, out_x=out_x, out_y=out_y, radius=radius, degree=degree, end_x=end_x, end_y=end_y))
 
 print("<path d=\"M {start_x} {start_y}".format(start_x=center_x+delta_x(0), start_y=center_y-delta_y(0) ))
 
-for end_x, end_y in ends:
-    print("L {end_x} {end_y}".format(end_x=end_x, end_y=end_y))
+for start_x, start_y in starts:
+    print("L {start_x} {start_y}".format(start_x=start_x, start_y=start_y))
 
-print("\" stroke=\"black\"></path>")
+print("Z \" fill=\"\" stroke=\"black\" fill-opacity=\"0\" stroke-width=\"10\"></path>")
