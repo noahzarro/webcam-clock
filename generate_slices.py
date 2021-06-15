@@ -1,20 +1,22 @@
 from math import sin, cos, pi
 
 base_string = '<mask id="mask{seg_nr}">\n<!-- Only stuff under a white pixel will be visible -->\n<path d="M {center_x}, {center_y} l {out_x} {out_y} L {end_x} {end_y}" fill="white"></path>\n</mask>'
-radius = 500
-center_x = 960
-center_y = 540
+radius = 540
+res_x = 1920
+res_y = 1080 
+center_x = res_x/2
+center_y = res_y/2
 degree = 30
 rad = degree/180 * pi 
-angle_offset = 0.261799
+angle_offset_rad = (15) /180 * pi 
 overlap = 0.001
 
 def delta_x(angle):
-    angle += angle_offset
+    angle += angle_offset_rad
     return radius*sin(angle)
 
 def delta_y(angle):
-    angle += angle_offset
+    angle += angle_offset_rad
     return radius*cos(angle)
 
 starts = []
@@ -45,7 +47,7 @@ end_x = center_x + delta_x(1*rad)
 end_y = center_y - delta_y(1*rad)
 
 
-print(base_string.format(seg_nr = "Half", center_x=center_x, center_y=center_y, out_x=out_x, out_y=out_y, radius=radius, degree=degree, end_x=end_x, end_y=end_y))
+print(base_string.format(seg_nr = "Perfect", center_x=center_x, center_y=center_y, out_x=out_x, out_y=out_y, radius=radius, degree=degree, end_x=end_x, end_y=end_y))
 
 print("<path d=\"M {start_x} {start_y}".format(start_x=center_x+delta_x(0), start_y=center_y-delta_y(0) ))
 
