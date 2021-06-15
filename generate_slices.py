@@ -8,7 +8,7 @@ center_x = res_x/2
 center_y = res_y/2
 degree = 30
 rad = degree/180 * pi 
-angle_offset_rad = (15) /180 * pi 
+angle_offset_rad = (-15) /180 * pi 
 overlap = 0.001
 
 def delta_x(angle):
