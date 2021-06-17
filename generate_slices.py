@@ -1,7 +1,7 @@
 from math import sin, cos, pi
 
 base_string = '<mask id="mask{seg_nr}">\n<!-- Only stuff under a white pixel will be visible -->\n<path d="M {center_x}, {center_y} l {out_x} {out_y} L {end_x} {end_y}" fill="white"></path>\n</mask>'
-radius = 540
+radius = 545
 res_x = 1920
 res_y = 1080 
 center_x = res_x/2
@@ -9,7 +9,7 @@ center_y = (res_y/2)+8
 degree = 30
 rad = degree/180 * pi 
 angle_offset_rad = (-15) /180 * pi 
-overlap = 0.001
+overlap = 8/180 * pi
 
 def delta_x(angle):
     angle += angle_offset_rad
