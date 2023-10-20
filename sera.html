@@ -1,5 +1,19 @@
 <head>
     <meta http-equiv="refresh" content="300" />
+    <script>
+        // Reload the page every 2 minutes (120,000 milliseconds)
+        function reloadPage() {
+        location.reload();
+        }
+
+        // Call reloadPage when the page loads
+        window.addEventListener("load", function () {
+        //reloadPage();
+
+        // Set a timer to call the reloadPage function every 2 minutes
+        setTimeout(reloadPage, 120000);
+        });
+    </script>
 </head>
 
 <body style="background-color: black; margin: 0px; padding: 0px">
